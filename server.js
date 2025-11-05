@@ -5,13 +5,18 @@ const app = express();
 
 async function fetchWorkflows() {
   const client = new Client({
-    host: process.env.DB_POSTGRESDB_HOST,
-    port: process.env.DB_POSTGRESDB_PORT ? Number(process.env.DB_POSTGRESDB_PORT) : 5432,
-    database: process.env.DB_POSTGRESDB_DATABASE,
-    user: process.env.DB_POSTGRESDB_USER,
-    password: process.env.DB_POSTGRESDB_PASSWORD,
-    ssl: { require: true, rejectUnauthorized: false }
-  });
+  host: process.env.DB_POSTGRESDB_HOST,
+  port: Number(process.env.DB_POSTGRESDB_PORT || 5432),
+  database: process.env.DB_POSTGRESDB_DATABASE,
+  user: process.env.DB_POSTGRESDB_USER,
+  password: process.env.DB_POSTGRESDB_PASSWORD,
+  ssl: {
+    require: true,
+    rejectUnauthorized: false,
+  },
+  connectionTimeoutMillis: 10000,
+});
+
 
   await client.connect();
   try {
