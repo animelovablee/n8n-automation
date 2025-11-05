@@ -10,7 +10,7 @@ async function fetchWorkflows() {
     database: process.env.DB_POSTGRESDB_DATABASE,
     user: process.env.DB_POSTGRESDB_USER,
     password: process.env.DB_POSTGRESDB_PASSWORD,
-    ssl: { rejectUnauthorized: false }
+    ssl: { require: true, rejectUnauthorized: false }
   });
 
   await client.connect();
